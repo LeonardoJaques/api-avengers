@@ -22,7 +22,7 @@ class AvangersResource(
         repository.getAvangers().map { AvangersResponse.from(it) }
             .let { ResponseEntity.ok().body(it) }
     
-    @GetMapping("{id}")
+    @GetMapping("{id}/detail")
     fun getAvangerDetail(@PathVariable(value = "id") id: Long) =
         repository.getDetails(id)?.let { avanger ->
             ResponseEntity.ok()
