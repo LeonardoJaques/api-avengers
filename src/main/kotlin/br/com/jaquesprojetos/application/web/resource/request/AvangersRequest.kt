@@ -8,8 +8,8 @@ import jakarta.validation.constraints.NotNull
 data class AvangersRequest(
     @field:NotNull @field:NotEmpty @field:NotBlank val nick: String,
     @field:NotNull @field:NotEmpty @field:NotBlank val person: String,
-    val description: String? = "",
-    val history: String? = "",
+    val description: String? = null,
+    val history: String? = null,
 ) {
     fun toAvanger() = Avanger(
         nick = nick,
