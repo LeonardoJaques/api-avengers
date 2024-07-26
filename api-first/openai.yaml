@@ -1,0 +1,166 @@
+## OpenAPI Specification
+## https://editor.swagger.io/
+openapi: 3.0.3
+info:
+  title: Avengers Registration API
+  description: |
+    This API allows you to manage Avengers' information.
+
+    **Features:**
+    * **Create:** Register a new Avenger
+    * **Read:**   List all Avengers, retrieve details of a specific Avenger
+    * **Update:** Modify an existing Avenger's information
+    * **Delete:** Remove an Avenger
+
+  version: 1.0.1
+  contact:
+    email: leonardo@jaquesprojetos.com
+
+servers:
+  - url: https://your-api-endpoint.com/api/v3
+
+tags:
+  - name: Avengers
+
+paths:
+  /v1/api/avenger:
+    get:
+      tags:
+        - Avengers
+      summary: List all Avengers
+      description: Retrieves a list of all registered Avengers.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Avenger'
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Avengers
+      summary: Create a new Avenger
+      description: Registers a new Avenger.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Avenger'
+      responses:
+        '201':
+          description: Avenger created successfully.
+        '400':
+          description: Invalid input data.
+
+  /v1/api/avenger/{id}/detail:
+    get:
+      tags:
+        - Avengers
+      summary: Get an Avenger by ID
+      description: Retrieves the details of a specific Avenger by their ID.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the Avenger to retrieve.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avenger'
+        '404':
+          description: Avenger not found.
+  /v1/api/avenger/{id}:
+    put:
+      tags:
+        - Avengers
+      summary: Update an Avenger
+      description: Updates the information of an existing Avenger.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the Avenger to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Avenger'
+      responses:
+        '200':
+          description: Avenger updated successfully.
+        '400':
+          description: Invalid input data.
+        '404':
+          description: Avenger not found.
+
+    delete:
+      tags:
+        - Avengers
+      summary: Delete an Avenger
+      description: Deletes an Avenger by their ID.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the Avenger to delete.
+      responses:
+        '204':
+          description: Avenger deleted successfully.
+        '404':
+          description: Avenger not found.
+
+components:
+  schemas:
+    Brand:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "8015ebf5-47e1-471e-a37e-28a66a8eb272"
+        label:
+          type: string
+          example: "World Wine"
+        image:
+          type: string
+          format: uri
+          example: "https://cdn.luxuryloyalty.com/media/brand/8015ebf5-47e1-471e-a37e-28a66a8eb272-c6.jpg"
+
+
+    Avenger:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        nick:
+          type: string
+          description: The Avenger's codename.
+          example: "spider-man"
+        person:
+          type: string
+          description: The Avenger's real name.
+          example: "Peter Parker"
+        description:
+          type: string
+          description: A brief description of the Avenger's abilities.
+          example: "Has spider-like abilities."
+        history:
+          type: string
+          description: A short summary of the Avenger's background.
+          example: "Bitten by a radioactive spider..."
