@@ -162,17 +162,17 @@ spring:
     show-sql: false
 ```
 
-## Dcoker
+## Docker
 
 ### Environment Config
 
 ```sh 
-DB_USER=dio.avenger
-DB_PASSWORD=dio.avenger
+DB_USER=leo.avenger
+DB_PASSWORD=leo.avenger
 DB_NAME=avengers
 ```
 
-### YAML (backend-services.yaml)
+### YAML (avenger-api-resource.yaml)
 
 ```yaml
 version: '3.2'
@@ -191,11 +191,11 @@ services:
     networks:
       - postgres-compose-network
 
-  teste-pgadmin-compose:
+  pgadmin-avenger:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "avengers@email.com"
-      PGADMIN_DEFAULT_PASSWORD: "123456"
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - "5556:80"
     depends_on:
