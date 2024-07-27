@@ -1,6 +1,6 @@
 package br.com.jaquesprojetos.application.web.resource.request
 
-import br.com.jaquesprojetos.domain.avanger.Avanger
+import br.com.jaquesprojetos.domain.avanger.Avenger
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
@@ -11,14 +11,14 @@ data class AvangersRequest(
     val description: String? = null,
     val history: String? = null,
 ) {
-    fun toAvanger() = Avanger(
+    fun toAvanger() = Avenger(
         nick = nick,
         person = person,
         description = description,
         history = history
     )
     companion object{
-       fun to(id: Long?, request: AvangersRequest) = Avanger(
+       fun to(id: Long?, request: AvangersRequest) = Avenger(
            id = id ,
            nick = request.nick,
            person = request.person,

@@ -1,6 +1,6 @@
 package br.com.jaquesprojetos.application.web.resource.response
 
-import br.com.jaquesprojetos.domain.avanger.Avanger
+import br.com.jaquesprojetos.domain.avanger.Avenger
 
 data class AvangersResponse(
     val id: Long?,
@@ -10,12 +10,12 @@ data class AvangersResponse(
     val history: String?,
 ){
     companion object {
-        fun from(avanger: Avanger) = AvangersResponse(
-            id = avanger.id,
-            nick = avanger.nick,
-            person = avanger.person,
-            description = avanger.description,
-            history = avanger.history
+        fun from(avenger: Avenger) = AvangersResponse(
+            id = avenger.id,
+            nick = avenger.nick,
+            person = avenger.person,
+            description = avenger.description,
+            history = avenger.history
         )
     }
 }

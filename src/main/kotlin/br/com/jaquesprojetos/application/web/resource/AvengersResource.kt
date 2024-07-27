@@ -2,7 +2,7 @@ package br.com.jaquesprojetos.application.web.resource
 
 import br.com.jaquesprojetos.application.web.resource.request.AvangersRequest
 import br.com.jaquesprojetos.application.web.resource.response.AvangersResponse
-import br.com.jaquesprojetos.domain.avanger.AvangerRepository
+import br.com.jaquesprojetos.domain.avanger.AvengerRepository
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -14,23 +14,23 @@ private const val API_PATH = "/v1/api/avenger"
 
 @RestController
 @RequestMapping(value = [API_PATH])
-class AvangersResource(
-    @Autowired private val repository: AvangerRepository,
+class AvengersResource(
+    @Autowired private val repository: AvengerRepository,
 ) {
     @GetMapping
-    fun getAvangers() =
-        repository.getAvangers().map { AvangersResponse.from(it) }
+    fun getAvengers() =
+        repository.getAvengers().map { AvangersResponse.from(it) }
             .let { ResponseEntity.ok().body(it) }
     
     @GetMapping("{id}/detail")
-    fun getAvangerDetail(@PathVariable(value = "id") id: Long) =
+    fun getAvengerDetail(@PathVariable(value = "id") id: Long) =
         repository.getDetails(id)?.let { avanger ->
             ResponseEntity.ok()
                 .body(avanger.let { it -> AvangersResponse.from(it) })
         } ?: ResponseEntity.notFound().build()
     
     @PostMapping
-    fun createAvanger(@Valid @RequestBody request: AvangersRequest) =
+    fun createAvenger(@Valid @RequestBody request: AvangersRequest) =
         request.toAvanger().run {
             repository.create(this)
         }.let {
@@ -39,19 +39,15 @@ class AvangersResource(
         }
     
     @PutMapping("{id}")
-    fun updateAvanger(
-        @PathVariable(value = "id") id: Long,
-        @Valid @RequestBody request: AvangersRequest,
-    ) = repository.getDetails(id)?.let { avanger ->
-        AvangersRequest.to(avanger.id, request).apply {
-            repository.update(this)
+    fun updateAvenger(@PathVariable(value = "id") id: Long, @Valid @RequestBody request: AvangersRequest) =
+        request.toAvanger().run {
+            repository.update(this.copy(id = id))
         }.let {
-            ResponseEntity.accepted().body(AvangersResponse.from(it))
+            ResponseEntity.ok().body(AvangersResponse.from(it))
         }
-    } ?: ResponseEntity.notFound().build()
     
     @DeleteMapping("{id}")
-    fun deleteAvanger(@PathVariable(value = "id") id: Long) =
+    fun deleteAvenger(@PathVariable(value = "id") id: Long) =
         repository.delete(id).let { ResponseEntity.accepted().build<Unit>() }
     
 }

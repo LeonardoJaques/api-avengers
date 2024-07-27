@@ -1,6 +1,6 @@
 package br.com.jaquesprojetos.domain.avanger
 
-data class Avanger(
+data class Avenger(
     val id: Long? = null,
     val nick: String,
     val person: String,
