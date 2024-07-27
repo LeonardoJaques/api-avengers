@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: dev
   jackson:
     serialization:
       indent-output: true
@@ -12,3 +10,4 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+

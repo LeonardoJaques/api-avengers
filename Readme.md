@@ -211,11 +211,22 @@ networks:
 ```
 
 ### Script / Comandos
-
-- `docker-compose -f avenger-api-resource.yaml up -d` (deploy) / `docker-compose -f avenger-api-resource.yaml down` (undeploy)
+```sh
+- `docker-compose -f avenger-api-resource.yaml up -d` (deploy) 
+- `docker-compose -f avenger-api-resource.yaml down` (undeploy)
+- `docker-compose -f avenger-api-resource.yaml logs -f` (logs)
+- `docker-compose -f avenger-api-resource.yaml ps` (status)
+- `docker-compose -f avenger-api-resource.yaml exec postgres psql -U leo.avenger avengers` (acesso ao banco de dados)
+- `docker-compose -f avenger-api-resource.yaml exec pgadmin-avenger bash` (acesso ao pgadmin)
+- `docker-compose -f avenger-api-resource.yaml down -v` (undeploy e remoção de volumes)
+- `docker-compose -f avenger-api-resource.yaml down -v --rmi all` (undeploy, remoção de volumes e imagens)
+- `docker-compose -f avenger-api-resource.yaml down -v --rmi all --remove-orphans` (undeploy, remoção de volumes, imagens e orfãos)
+- `docker-compose -f avenger-api-resource.yaml config` (validação do arquivo)
+```
 
 - Start API
 ```sh
+chmod +x mvnw
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.
 jvmArguments="-Xmx256m -Xms128m" -Dspring-boot.run.arguments="'--DB_USER=leo.
 avenger' '--DB_PASSWORD=leo.avenger' '--DB_NAME=avengers'"

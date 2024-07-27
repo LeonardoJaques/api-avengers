@@ -8,8 +8,6 @@
     #    group:
     #      <group>: dev, auth
     use-legacy-processing: true
-  profiles:
-    active: dev
   jmx:
     enabled: false
   data:
